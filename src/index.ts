@@ -1,3 +1,3 @@
-import { testDialog } from "./examples/test_dialog";
+import { testJSBridge } from "./examples/test_JSBridge";
 
-testDialog();
+testJSBridge();

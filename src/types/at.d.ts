@@ -10,6 +10,11 @@ declare namespace at {
     width: number;
     height: number;
   };
+
+  function getScreenInfo(): {
+    width: number;
+    height: number;
+  };
   /**
    * Log message to Log View.
    * @param message - The message to log.
