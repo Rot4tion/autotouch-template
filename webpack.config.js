@@ -58,12 +58,12 @@ module.exports = {
     },
   ],
   plugins: [
-    new webpack.BannerPlugin({
-      banner: `const axios = require("axios");
-      const lodash = require("lodash");`,
-      raw: true,
-      entryOnly: true,
-    }),
+    // new webpack.BannerPlugin({
+    //   banner: `const axios = require("axios");
+    //   const lodash = require("lodash");`,
+    //   raw: true,
+    //   entryOnly: true,
+    // }),
     new AutoTouchPlugin(config),
   ],
 };

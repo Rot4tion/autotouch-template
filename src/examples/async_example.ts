@@ -1,5 +1,5 @@
 import { deasync, logDebug } from "../util";
-
+import axios from "axios";
 async function main() {
   console.log("Script Running");
   const response = await axios.get(
