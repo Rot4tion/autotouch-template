@@ -3,7 +3,7 @@
 module.exports = {
   isAutoUpload: true, // Auto upload build file to AutoTouch host
   isAutoStart: false, // Auto start script it will stop current playing script and run new build script
-  host: "192.168.1.117",// Your phone ip address
+  host: "192.168.1.117", // Your phone ip address
   port: 8080,
-  filename: "bundle.js",
+  filename: "bundle.js", //File name you want on your phone
 };
