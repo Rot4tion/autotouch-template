@@ -49,6 +49,10 @@ To get started with this template, follow the steps below:
 
     - This command will run the script based on the configurations set in the config.js file.
 
+## Sample Code
+
+Sample code and examples can be found in the src/examples directory. You can use these as references for building your own scripts using the AutoTouch Template.
+
 ## ✉️ Support & Contributions
 
 Feel free to open issues or submit pull requests if you have suggestions, questions, or run into any problems. Your contributions are welcome!
