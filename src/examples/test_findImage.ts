@@ -80,7 +80,10 @@ console.log(
  */
 const [result, error] = at.findImage(options);
 if (error) {
-  at.alert("Failed to findImage, error: %s", error);
+  at.alert(
+    "Failed to findImage, error: %s",
+    error
+  );
 } else {
   console.log(
     "Got result by findImage synchronously",

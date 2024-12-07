@@ -138,12 +138,7 @@ declare namespace at {
     bottomToTop?: boolean;
   }): [Array<{ x: number; y: number }>, string];
 
-  /**
-   * Search areas matching the specified image on current screen and return the center coordinates.
-   * @param params - Configuration for findImage.
-   * @returns [coordinates, error]
-   */
-  function findImage(params: {
+  type FindImageOptions = {
     targetImagePath: string;
     count?: number;
     threshold?: number;
@@ -152,11 +147,42 @@ declare namespace at {
       y: number;
       width: number;
       height: number;
-    };
+    } | null;
     debug?: boolean;
     method?: number;
-  }): [Array<{ x: number; y: number }>, string];
+  };
+  type FindImageResult = [
+    Array<{ x: number; y: number }>,
+    string
+  ];
+  /**
+   * Search areas matching the specified image on current screen and return the center coordinates.
+   * @param params - Configuration for findImage.
+   * @returns [coordinates, error]
+   */
+  function findImage(
+    params: FindImageOptions
+  ): FindImageResult;
 
+  function findImage(params: {
+    options: FindImageOptions;
+    duration?: number; // OPTIONAL, how long time you want it to keep finding? Three formats are supported: 1. `duration: 10` means repeat finding 10 times, the value must be a number, can't be a string; 2. `duration: '60s'` means keep finding for 60 seconds, the value must be seconds + a character 's'; 3. `duration: '2020-05-30 12:00:00'` means keep finding till 2020-05-30 12:00:00. Default is `duration: 10` means repeat 10 times, the value must be a string.
+    interval?: number; // OPTIONAL, interval between loops in milliseconds, default is 1000 milliseconds.
+    exitIfFound?: boolean; // OPTIONAL, if exit findImage if got a result successfully, default is true.
+    eachFindingCallback: () => void;
+    foundCallback: (result: any) => void;
+    errorCallback?: (error) => void;
+    completedCallback?: () => void;
+    block?: boolean; // OPTIONAL, you want to run findImage asynchronously or synchronously, block=true means it will run synchronously and block here till completed, default is false, doesn't block here.
+  });
+
+  function findImage(
+    options: FindImageOptions,
+    callback: (
+      result: FindImageResult,
+      error: any
+    ) => void
+  );
   /**
    * Take a screenshot for the whole screen or specified area.
    * @param savePath - Where to save the image.
