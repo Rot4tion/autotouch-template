@@ -561,7 +561,7 @@ declare const CONTROLLER_TYPE: {
   REMEMBER: number;
 };
 
-declare const ORIENTATION_TYPE: {
+declare const INTERFACE_ORIENTATION_TYPE: {
   UNKNOWN: number;
   PORTRAIT: number;
   PORTRAIT_UPSIDE_DOWN: number;
