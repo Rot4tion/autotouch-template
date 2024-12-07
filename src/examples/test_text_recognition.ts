@@ -161,10 +161,7 @@ export const testTextRecognition = () => {
     (text) => text.toLowerCase() === "examples"
   );
   if (error) {
-    alert(
-      "Failed to findText, error: %s",
-      error
-    );
+    alert("Failed to findText, error: %s", error);
   } else {
     console.log(
       "Got result by findText synchronously",
