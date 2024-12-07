@@ -1,4 +1,8 @@
 import _ from "lodash";
+//@ts-ignore
+import config from "../config";
+import { curPath } from "./constants";
+import axios from "axios";
 
 const {
   appInfo,
@@ -50,6 +54,65 @@ const {
 const isDebug = true;
 const actionSleepDuration = 1000;
 const scrollSleep = 1000;
+
+// author @dung13796
+/**
+ * Captures a screenshot and returns its content as a Base64 string when fs.readFile not work.
+ *
+ * @param {Region} [region] - Optional. The region of the screen to capture. If not provided, captures the entire screen.
+ * @param {number} [scale] - Optional. The scale factor to apply to the screenshot (e.g., 2 for Retina displays). Default is 1.
+ * @param {number} [quality] - Optional. The quality of the screenshot (0-100). Higher values produce better quality.
+ * @returns {string} - The Base64-encoded content of the captured screenshot.
+ *
+ * @throws {Error} - Throws an error if the screenshot cannot be captured or the file cannot be read.
+ *
+ * ### How it works:
+ * 1. Generates a unique file name for the screenshot based on the current timestamp.
+ * 2. Saves the screenshot to the file system in the specified region, scale, and quality.
+ * 3. Sends a request to a local server to retrieve the file content in Base64 format.
+ * 4. Deletes the temporary screenshot file from the file system.
+ * 5. Returns the Base64 string of the screenshot.
+ *
+ * ### Example:
+ * ```typescript
+ * const screenshotBase64 = getScreenshotImage({ x: 0, y: 0, width: 1920, height: 1080 }, 2, 80);
+ * console.log(screenshotBase64); // Base64 string of the screenshot
+ * ```
+ */
+export function getScreenshotImage(
+  region?: Region,
+  scale?: number,
+  quality?: number
+) {
+  const imageName = `${new Date().toISOString()}.png`;
+  const imagePath = `${curPath}/${imageName}`;
+  at.screenshot(
+    imagePath,
+    region,
+    scale,
+    quality
+  );
+  const [res, error] = deasync(() =>
+    //@ts-ignore
+    axios.get(
+      `http://localhost:${config.port}/file/content?path=/${imageName}`
+    )
+  );
+
+  const content: string | undefined =
+    //@ts-ignore
+    res.data["content"];
+
+  if (!res || !content) {
+    throw new Error(
+      `Cannot read file ${imagePath}`
+    );
+  }
+
+  fs.remove(imagePath);
+  return content;
+}
+
 export async function waitForEither<
   T extends readonly unknown[]
 >(

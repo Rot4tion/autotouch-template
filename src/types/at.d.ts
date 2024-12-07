@@ -2,15 +2,14 @@ declare type RecognizeTextResult = Array<{
   text: string;
   rectangle: Rectangle;
 }>;
+declare type Region = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
 
 declare namespace at {
-  type Region = {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
-
   function getScreenInfo(): {
     width: number;
     height: number;

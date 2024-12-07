@@ -1,4 +1,7 @@
-import { logDebug } from "./util";
+import {
+  getScreenshotImage,
+  logDebug,
+} from "./util";
 
 function main() {
   console.log("Script Running");
