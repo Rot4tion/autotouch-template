@@ -59,19 +59,9 @@ const scrollSleep = 1000;
 /**
  * Captures a screenshot and returns its content as a Base64 string when fs.readFile not work.
  *
- * @param {Region} [region] - Optional. The region of the screen to capture. If not provided, captures the entire screen.
- * @param {number} [scale] - Optional. The scale factor to apply to the screenshot (e.g., 2 for Retina displays). Default is 1.
- * @param {number} [quality] - Optional. The quality of the screenshot (0-100). Higher values produce better quality.
  * @returns {string} - The Base64-encoded content of the captured screenshot.
  *
  * @throws {Error} - Throws an error if the screenshot cannot be captured or the file cannot be read.
- *
- * ### How it works:
- * 1. Generates a unique file name for the screenshot based on the current timestamp.
- * 2. Saves the screenshot to the file system in the specified region, scale, and quality.
- * 3. Sends a request to a local server to retrieve the file content in Base64 format.
- * 4. Deletes the temporary screenshot file from the file system.
- * 5. Returns the Base64 string of the screenshot.
  *
  * ### Example:
  * ```typescript
