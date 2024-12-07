@@ -8,7 +8,10 @@
     "start": "node ./scripts/start"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rot4tion",
+  "repository": {
+    "url": "https://github.com/Rot4tion/autotouch-template"
+  },
   "license": "ISC",
   "description": "",
   "devDependencies": {

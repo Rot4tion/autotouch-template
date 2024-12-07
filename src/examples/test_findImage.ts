@@ -56,8 +56,8 @@ export const testFindImage = () => {
       );
     },
     errorCallback: (error) => {
-      // OPTIONAL, handle any error, will exit findImage if got error, if no errorCallback provide, it will at.alert while getting error.
-      at.alert(error);
+      // OPTIONAL, handle any error, will exit findImage if got error, if no errorCallback provide, it will alert while getting error.
+      alert(error);
     },
     completedCallback: () => {
       // OPTIONAL, callback when all finding completed
@@ -81,7 +81,7 @@ export const testFindImage = () => {
    */
   const [result, error] = at.findImage(options);
   if (error) {
-    at.alert(
+    alert(
       "Failed to findImage, error: %s",
       error
     );
@@ -107,7 +107,7 @@ export const testFindImage = () => {
    */
   at.findImage(options, (result, error) => {
     if (error) {
-      at.alert(
+      alert(
         "Failed to findImage, error: %s",
         error
       );

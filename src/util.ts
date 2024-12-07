@@ -1,7 +1,6 @@
 import _ from "lodash";
 
 const {
-  alert,
   appInfo,
   appKill,
   appRun,

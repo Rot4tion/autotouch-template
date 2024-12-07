@@ -25,15 +25,6 @@ declare namespace at {
   ): void;
 
   /**
-   * Popup a message.
-   * @param message - The message to display.
-   */
-  function alert(
-    message?: any,
-    ...optionalParams: any[]
-  ): void;
-
-  /**
    * Sleep several microseconds (1/1000000 second).
    * @param microseconds - The number of paused microseconds.
    */

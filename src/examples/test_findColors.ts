@@ -72,7 +72,7 @@ export const testFindColor = () => {
    */
   const [result, error] = at.findColors(options);
   if (error) {
-    at.alert(
+    alert(
       "Failed to find colors, error: %s",
       error
     );
@@ -98,7 +98,7 @@ export const testFindColor = () => {
    */
   at.findColors(options, (result, error) => {
     if (error) {
-      at.alert(
+      alert(
         "Failed to find colors, error: %s",
         error
       );

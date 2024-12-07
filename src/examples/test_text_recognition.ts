@@ -55,7 +55,7 @@ export const testTextRecognition = () => {
    */
   at.recognizeText(options, (result, error) => {
     if (error) {
-      at.alert(error);
+      alert(error);
     } else {
       console.log(
         `Got result of recognizeText:\n${JSON.stringify(
@@ -161,7 +161,7 @@ export const testTextRecognition = () => {
     (text) => text.toLowerCase() === "examples"
   );
   if (error) {
-    at.alert(
+    alert(
       "Failed to findText, error: %s",
       error
     );
@@ -191,7 +191,7 @@ export const testTextRecognition = () => {
     (text) => text.toLowerCase() === "examples",
     (result, error) => {
       if (error) {
-        at.alert(
+        alert(
           "Failed to findText, error: %s",
           error
         );

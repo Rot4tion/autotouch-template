@@ -18,13 +18,13 @@ export const testHttpRequest = () => {
       console.log(
         "-----------------------------"
       );
-      at.alert(
+      alert(
         "Successfuly made http request and response has been written to the log!"
       );
     })
     .catch(function (error) {
       // handle error
-      at.alert(
+      alert(
         "Failed to make http request, error: ",
         error
       );

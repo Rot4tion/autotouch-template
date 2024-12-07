@@ -18,6 +18,10 @@ declare type Rectangle = {
 };
 
 declare var onStop: (error: any) => void;
+declare function alert(
+  message?: any,
+  ...optionalParams: any[]
+): void;
 declare function assert(...params: any[]);
 declare function dispatch_after(
   arg0: number,

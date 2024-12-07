@@ -96,13 +96,13 @@ collectInputs = Boolean type specifying wheather the dialog should collect the i
   });
 
   if (result == 1) {
-    at.alert(
+    alert(
       "name:%s, birthday:%s, gender:%d",
       nameInput.value,
       positionPicker.value,
       developerSwitch.value
     );
   } else {
-    at.alert("Dialog returned: %s", result);
+    alert("Dialog returned: %s", result);
   }
 };
