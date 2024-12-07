@@ -20,7 +20,9 @@ To get started with this template, follow the steps below:
     npm install
     ```
 
-3. Configure the environment
+3. On the phone open `AutoTouch > Settings > Turn on Web Server`.
+
+4. Configure the environment
     Modify the config.js file to configure the setup according to your machine and needs. This file will include configurations related to AutoTouch and script execution.
 
     ```js
@@ -33,7 +35,7 @@ To get started with this template, follow the steps below:
     };
     ```
 
-4. Run script
+5. Run script
 
     ```bash
     npm run dev
@@ -51,7 +53,7 @@ To get started with this template, follow the steps below:
 
 ## Sample Code
 
-Sample code and examples can be found in the src/examples directory. You can use these as references for building your own scripts using the AutoTouch Template.
+Sample code and examples can be found in the `src/examples` directory. You can use these as references for building your own scripts using the AutoTouch Template.
 
 ## ✉️ Support & Contributions
 
