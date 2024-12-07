@@ -18,3 +18,4 @@ declare type Rectangle = {
 };
 
 declare var onStop: (error: any) => void;
+declare function assert(...params: any[]);

@@ -4,6 +4,12 @@ declare type RecognizeTextResult = Array<{
 }>;
 
 declare namespace at {
+  type Region = {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
   /**
    * Log message to Log View.
    * @param message - The message to log.
@@ -96,6 +102,18 @@ declare namespace at {
     locations: Array<{ x: number; y: number }>
   ): [number[], string];
 
+  type FindColorOptions = {
+    colors: {
+      color: number;
+      x: number;
+      y: number;
+    }[];
+    count?: number;
+    region?: Region | null;
+    debug?: boolean;
+    rightToLeft?: boolean;
+    bottomToTop?: boolean;
+  };
   /**
    * Search the coordinates of the pixel points matching the specified color on current screen.
    * @param params - Configuration for findColor.
@@ -104,50 +122,37 @@ declare namespace at {
   function findColor(params: {
     color: number;
     count?: number;
-    region?: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    };
+    region?: Region;
     debug?: boolean;
     rightToLeft?: boolean;
     bottomToTop?: boolean;
   }): [Array<{ x: number; y: number }>, string];
 
-  /**
-   * Search all rectangular areas matching specified colors and return the coordinates.
-   * @param params - Configuration for findColors.
-   * @returns [coordinates, error]
-   */
   function findColors(params: {
-    colors: Array<{
-      color: number;
-      x: number;
-      y: number;
-    }>;
-    count?: number;
-    region?: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    };
-    debug?: boolean;
-    rightToLeft?: boolean;
-    bottomToTop?: boolean;
-  }): [Array<{ x: number; y: number }>, string];
+    options: FindColorOptions;
+    duration?: number | string;
+    interval?: number;
+    exitIfFound?: boolean;
+    eachFindingCallback: () => void;
+    foundCallback: (result: any) => void;
+    errorCallback?: (error) => void;
+    completedCallback?: () => void;
+    block?: boolean;
+  }): void;
+
+  function findColors(
+    options: FindColorOptions
+  ): [result: any, error: any];
+  function findColors(
+    options: FindColorOptions,
+    callback: (result: any, error: any) => void
+  ): void;
 
   type FindImageOptions = {
     targetImagePath: string;
     count?: number;
     threshold?: number;
-    region?: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    } | null;
+    region?: Region | null;
     debug?: boolean;
     method?: number;
   };
@@ -166,7 +171,7 @@ declare namespace at {
 
   function findImage(params: {
     options: FindImageOptions;
-    duration?: number; // OPTIONAL, how long time you want it to keep finding? Three formats are supported: 1. `duration: 10` means repeat finding 10 times, the value must be a number, can't be a string; 2. `duration: '60s'` means keep finding for 60 seconds, the value must be seconds + a character 's'; 3. `duration: '2020-05-30 12:00:00'` means keep finding till 2020-05-30 12:00:00. Default is `duration: 10` means repeat 10 times, the value must be a string.
+    duration?: number | string; // OPTIONAL, how long time you want it to keep finding? Three formats are supported: 1. `duration: 10` means repeat finding 10 times, the value must be a number, can't be a string; 2. `duration: '60s'` means keep finding for 60 seconds, the value must be seconds + a character 's'; 3. `duration: '2020-05-30 12:00:00'` means keep finding till 2020-05-30 12:00:00. Default is `duration: 10` means repeat 10 times, the value must be a string.
     interval?: number; // OPTIONAL, interval between loops in milliseconds, default is 1000 milliseconds.
     exitIfFound?: boolean; // OPTIONAL, if exit findImage if got a result successfully, default is true.
     eachFindingCallback: () => void;
@@ -192,12 +197,7 @@ declare namespace at {
    */
   function screenshot(
     savePath?: string,
-    region?: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    },
+    region?: Region,
     scale?: number,
     quality?: number
   ): void;
@@ -443,12 +443,7 @@ declare namespace at {
    */
   function recognizeText(
     options: {
-      region?: {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-      };
+      region?: Region;
       level?: number;
       languages?: string[];
       debug?: boolean;
@@ -465,12 +460,7 @@ declare namespace at {
    */
   function findText(params: {
     options?: {
-      region?: {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-      };
+      region?: Region;
       debug?: boolean;
       [key: string]: any; // Additional optional options can be included.
     };
