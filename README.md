@@ -23,7 +23,7 @@ To get started with this template, follow the steps below:
 3. On the phone open `AutoTouch > Settings > Turn on Web Server`.
 
 4. Configure the environment
-    Modify the config.js file to configure the setup according to your machine and needs. This file will include configurations related to AutoTouch and script execution.
+    Modify the `config.js` file to configure the setup according to your machine and needs. This file will include configurations related to AutoTouch and script execution.
 
     ```js
     module.exports = {
@@ -41,7 +41,7 @@ To get started with this template, follow the steps below:
     npm run dev
     ```
 
-    - Development mode, every time you save a file, the code will automatically be bundled and do actions in config.js file.
+    - Development mode, every time you save a file, the code will automatically be bundled and do actions in `config.js` file.
 
     ```bash
     npm run start
@@ -49,7 +49,7 @@ To get started with this template, follow the steps below:
 
     - Run bundle script already build on phone.
 
-    - This command will run the script based on the configurations set in the config.js file.
+    - This command will run the script based on the configurations set in the `config.js` file.
 
 ## Sample Code
 

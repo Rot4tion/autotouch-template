@@ -1,7 +1,12 @@
 import _ from "lodash";
 //@ts-ignore
 import config from "../config";
-import { curPath } from "./constants";
+import {
+  autotouchScriptsPath,
+  isDebug,
+  tempFolderName,
+  tempPath,
+} from "./constants";
 import axios from "axios";
 
 const {
@@ -51,13 +56,64 @@ const {
   usleep,
   vibrate,
 } = at;
-const isDebug = true;
+
 const actionSleepDuration = 1000;
 const scrollSleep = 1000;
 
+function readFileHttp(path: string) {
+  const [res, error] = deasync(() =>
+    //@ts-ignore
+    axios.get(
+      `http://localhost:${config.port}/file/content?path=/${path}`
+    )
+  );
+
+  const content: string | undefined =
+    //@ts-ignore
+    res.data["content"];
+
+  if (!res || !content) {
+    throw new Error(`Cannot read file ${path}`);
+  }
+  return content;
+}
+
+function createTempDirectory() {
+  const [res, err] = fs.exists(tempPath);
+  if (!res) {
+    fs.createDirectory(tempPath);
+  }
+  return true;
+}
+
+/**
+ * use when fs.readFile not work required Web Server.
+ * @param path absolute path
+ * @returns file content
+ */
+export function readFile(path: string) {
+  const [result, error] = fs.readFile(path);
+  if (!error) {
+    return result;
+  }
+  createTempDirectory();
+  const fileName = path.split("/").pop();
+  // remove exists file
+  fs.remove(`${tempPath}/${fileName}`);
+  const [res, err] = fs.copy(
+    path,
+    tempPath + "/" + fileName
+  );
+  const tempFile = `/${tempFolderName}/${fileName}`;
+  const content = readFileHttp(tempFile);
+  // remove temp file for clean
+  fs.remove(`${tempPath}/${fileName}`);
+  return content;
+}
+
 // author @dung13796
 /**
- * Captures a screenshot and returns its content as a Base64 string when fs.readFile not work.
+ * Captures a screenshot and returns its content as a Base64 string when fs.readFile not work required Web Server.
  *
  * @returns {string} - The Base64-encoded content of the captured screenshot.
  *
@@ -75,30 +131,14 @@ export function getScreenshotImage(
   quality?: number
 ) {
   const imageName = `${new Date().toISOString()}.png`;
-  const imagePath = `${curPath}/${imageName}`;
+  const imagePath = `${autotouchScriptsPath}/${imageName}`;
   at.screenshot(
     imagePath,
     region,
     scale,
     quality
   );
-  const [res, error] = deasync(() =>
-    //@ts-ignore
-    axios.get(
-      `http://localhost:${config.port}/file/content?path=/${imageName}`
-    )
-  );
-
-  const content: string | undefined =
-    //@ts-ignore
-    res.data["content"];
-
-  if (!res || !content) {
-    throw new Error(
-      `Cannot read file ${imagePath}`
-    );
-  }
-
+  const content = readFileHttp(imageName);
   fs.remove(imagePath);
   return content;
 }
